@@ -24,7 +24,7 @@ public class Main {
 class MatrixLoader {
 
     //load matrix files into Matrix object, return the resulting Matrix object
-    public ArrayList loadMatrix(File matrixFile) {
+    public List loadMatrix(File matrixFile) {
 
         try {
             Scanner fileIn = new Scanner(matrixFile);
@@ -46,20 +46,5 @@ class MatrixLoader {
             e.printStackTrace();
         }
         return null;
-    }
-}
-
-class Matrix {
-
-    List<List<Integer>> dataMatrix = new ArrayList<List<Integer>>();
-
-    public void addRow(List<Integer> row){
-        dataMatrix.add(row);
-    }
-
-    public List<Integer> getDijkstraShortestPath(int start, int end){
-        List<Integer> shortestPath = new ArrayList<Integer>();
-
-        return shortestPath;
     }
 }
