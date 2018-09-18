@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="COP5537_18FALL_Assignment1" target="1.5" />
+      <module name="COP5537_18FALL_Assignment1" target="10" />
     </bytecodeTargetLevel>
   </component>
 </project>

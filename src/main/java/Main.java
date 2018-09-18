@@ -11,11 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        File toyMatrix = new File ("./resources/toyMatrix.txt");
-        File networkMatrix = new File ("./resources/networkMatrix.txt");
+        File toyMatrix = new File ("C:\\Users\\roym3\\IdeaProjects\\COP5537_18FALL_Assignment1\\src\\main\\resources\\toyMatrix.txt");
+        File networkMatrix = new File ("C:\\Users\\roym3\\IdeaProjects\\COP5537_18FALL_Assignment1\\src\\main\\resources\\networkMatrix.txt");
 
         MatrixLoader matrixLoader = new MatrixLoader();
-        Matrix theMatrix = matrixLoader.loadMatrix(toyMatrix);
+        List theMatrix = matrixLoader.loadMatrix(networkMatrix);
 
     }
 
@@ -24,17 +24,28 @@ public class Main {
 class MatrixLoader {
 
     //load matrix files into Matrix object, return the resulting Matrix object
-    public Matrix loadMatrix(File matrixFile) {
-        Matrix theMatrix = new Matrix();
+    public ArrayList loadMatrix(File matrixFile) {
+
         try {
             Scanner fileIn = new Scanner(matrixFile);
+            ArrayList<ArrayList<Integer>> theMatrix = new ArrayList<>();
+            while(fileIn.hasNextLine()){
+                Scanner colReader = new Scanner(fileIn.nextLine().replaceAll("[0-9]*\t",""));
+                colReader.useDelimiter(",");
+                ArrayList col = new ArrayList();
+                while(colReader.hasNextInt())
+                {
+                    col.add(colReader.nextInt());
+                }
+                theMatrix.add(col);
+            }
+            return (theMatrix);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return (theMatrix);
+        return null;
     }
 }
 
