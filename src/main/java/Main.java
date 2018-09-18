@@ -1,9 +1,6 @@
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +12,7 @@ public class Main {
         File networkMatrix = new File ("C:\\Users\\roym3\\IdeaProjects\\COP5537_18FALL_Assignment1\\src\\main\\resources\\networkMatrix.txt");
 
         MatrixLoader matrixLoader = new MatrixLoader();
-        List theMatrix = matrixLoader.loadMatrix(networkMatrix);
+        List<List<Integer>> theMatrix = matrixLoader.loadMatrix(toyMatrix);
 
     }
 
@@ -24,15 +21,15 @@ public class Main {
 class MatrixLoader {
 
     //load matrix files into Matrix object, return the resulting Matrix object
-    public List loadMatrix(File matrixFile) {
+    public List<List<Integer>> loadMatrix(File matrixFile) {
 
         try {
             Scanner fileIn = new Scanner(matrixFile);
-            ArrayList<ArrayList<Integer>> theMatrix = new ArrayList<>();
+            List<List<Integer>> theMatrix = new ArrayList<>();
             while(fileIn.hasNextLine()){
                 Scanner colReader = new Scanner(fileIn.nextLine().replaceAll("[0-9]*\t",""));
                 colReader.useDelimiter(",");
-                ArrayList col = new ArrayList();
+                List<Integer> col = new ArrayList<>();
                 while(colReader.hasNextInt())
                 {
                     col.add(colReader.nextInt());
@@ -41,8 +38,6 @@ class MatrixLoader {
             }
             return (theMatrix);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
