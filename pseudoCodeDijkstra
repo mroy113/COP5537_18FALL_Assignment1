@@ -1,0 +1,10 @@
+solve(graph,start,end)
+    for each vertex in the graph, assign distance to MAX_DIST
+    distance to start = 0
+    visitedVertexes = {empty set}
+    while (visitedVertexes != graph.getVertexes)
+        choose the edge with the smallest distance from current vertex that is not in visitedVertexes
+        add current vertex to visitedVertexes
+        for each edge at current vertex
+            if d(u) > d(v) + d(p)
+                d(u) = d(v) + d(p)

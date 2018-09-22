@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -36,15 +34,15 @@ public class Main {
                 }
             }
         }
-/*
+
         //user input
-        String startingVertex = "zero";
-        String endingVertex = "six";
-        //
+        //String startingVertex = "zero";
+        //String endingVertex = "six";
+
         DijkstraSolver shortestPathSolver = new DijkstraSolver();
         shortestPathSolver.solve(graph, graph.getVerticies().get(0), graph.getVerticies().get(6));
 
-        System.out.print("wut");*/
+        System.out.print("wut");
 
     }
 
@@ -111,8 +109,8 @@ class Vertex {
 }
 
 class Edge  {
-    Vertex source;
-    Vertex destination;
+    private Vertex source;
+    private Vertex destination;
     int distance;
 
     public Edge(Vertex source, Vertex destination, int distance) {
@@ -134,12 +132,31 @@ class Edge  {
     public void setDistance(int distance) {
         this.distance = distance;
     }
+
+    public boolean containsVertex(Vertex vertex){
+        if (this.getSource() == vertex || this.getDestination() == vertex){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Vertex getVertexPair(Vertex vertex){
+        if (containsVertex(vertex)){
+            if (vertex == this.destination) {
+                return this.getSource();
+            } else {
+                return this.getDestination();
+            }
+        } else return null;
+    }
+
 }
 
 class Graph {
 
-    List<Vertex> verticies;
-    List<Edge> edges;
+    private List<Vertex> verticies;
+    private List<Edge> edges;
 
     public Graph(){
         verticies = new ArrayList<Vertex>();
@@ -169,12 +186,72 @@ class Graph {
     public void addEdge(Vertex vertex, Vertex vertex1, Integer integer) {
         edges.add(new Edge(vertex, vertex1, integer));
     }
+
+    public List getNeighbors(Vertex vertex){
+        List neighbors = new ArrayList<Vertex>();
+        for (Edge e : edges){
+            if (e.containsVertex(vertex)){
+                neighbors.add(e);
+            }
+        }
+        return neighbors;
+    }
 }
 
 class DijkstraSolver {
 
     public void solve(Graph graph, Vertex start, Vertex end){
+        Set visitedVerticies = new HashSet<Vertex>();
+        Set unvisitedVerticies = new HashSet<Vertex>();
+        Map distances = new HashMap<Vertex,Integer>();
+        Map predecessors = new HashMap<Vertex, Vertex>();
 
+        //initialize distances
+        for (var v : graph.getVerticies()){
+            distances.put(v,Integer.MAX_VALUE);
+        }
+        distances.computeIfPresent(start, (k,v) -> 0);
+
+        //initialize list of unvisited verticies
+        for (Vertex vertex : graph.getVerticies()){
+            unvisitedVerticies.add(vertex);
+        }
+
+        Vertex current = start;
+        while(!unvisitedVerticies.isEmpty()) {
+
+/*            for (var vertex : unvisitedVerticies){
+                int dv = (Integer)distances.get(vertex);
+                int dc = (Integer)distances.get(current);
+                if ( dv <= dc || visitedVerticies.contains(current)){
+                    current = (Vertex)vertex;
+                }
+            }
+
+            List<Edge> neighbors = graph.getNeighbors(current);
+            visitedVerticies.add(current);
+            unvisitedVerticies.remove(current);
+            for (Edge neighbor : neighbors){
+                int distance = neighbor.getDistance();
+                if (distance > (Integer)distances.get(current)){
+                    distances.put(neighbor.getVertexPair(current),distance + (Integer)distances.get(current));
+                }
+
+            }
+*/
+
+            List<Edge> neighbors = graph.getNeighbors(current);
+            Vertex closest = null;
+            for (int i = 0; i < neighbors.size(); i++) {
+                if (closest == null || neighbors.get(i).getDistance() < neighbors.){
+                    closest = neighbors.get(i).getVertexPair(current);
+                }
+
+            }
+            visitedVerticies.add(current);
+            unvisitedVerticies.remove(current);
+            System.out.print("wut");
+        }
+        System.out.print("wut");
     }
-
 }
